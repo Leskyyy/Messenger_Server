@@ -11,11 +11,20 @@ W celu komunikacji klient-serwer należało zaimplementować własny protokół 
 ### **Message protocol**
 Protokół wykorzystywany do przekazywania wiadomości tekstowych w komunikatorze. Zawiera informację o długości całej wiadomości, oraz człony dotyczące nadawcy, odbiorcy i zawartości wiadomości wraz z ich długościami.
 
+![](msg_protocol.png "Message Protocol")
+*Rys. 1 Ramka protokołu wiadomości*
+
 ### **Credentials protocol**
 Protokół wykorzystywany do przekazywania informacji o logowaniu. Zawiera informację o długości całej wiadomości, oraz człony dotyczące nadawcy, odbiorcy i zawartości wiadomości wraz z ich długościami.
 
+![](cred_protocol.png "Credentials Protocol")
+*Rys. 2 Ramka protokołu danych logowania*
+
 ### **Friend request protocol**
 Protokół wykorzystywany do przekazywania zapytania do serwera dotyczącego istnienia użytkownika zaproszonego do znajomych. Zawiera informację o długości nazwy użytkownika, oraz nazwę użytkownika.
+
+![](req_protocol.png "Friend Request Protocol")
+*Rys. 3 Ramka protokołu zaproszeń*
 
 ## **Struktura projektu**
 
