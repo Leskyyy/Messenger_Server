@@ -125,11 +125,12 @@ void encode(char* output, Message message) {
 Message decode(char* encodedMessage) {
     int cursor = 0;
 
+    cursor += INT_SIZE;
     int senderLen = getLengthFromBytes(encodedMessage + cursor); cursor += INT_SIZE;
     char* sender = allocMemForString(senderLen + 1);
     strncpy(sender, encodedMessage + cursor, senderLen+1); cursor += senderLen;
     sender[senderLen] = '\0';
-    
+
 
     int receiverLen = getLengthFromBytes(encodedMessage + cursor); cursor += INT_SIZE;
     char* receiver = allocMemForString(receiverLen + 1);
@@ -147,7 +148,7 @@ Message decode(char* encodedMessage) {
     message.receiver = receiver;
     message.content = content;
     message.totalLen = getMessageLength(message);
-    
+
     return message;
     free(sender);
     free(receiver);
@@ -183,14 +184,14 @@ void encodeRequest(char *output, Request request, int decision){
 }
 
 Credentials decodeCredentials(char* encodedCredentials, bool to_register) {
- 
+
     int cursor = 1;
 
     int loginLen = getLengthFromBytes(encodedCredentials + cursor); cursor += INT_SIZE;
     char* login = allocMemForString(loginLen + 1);
     strncpy(login, encodedCredentials + cursor, loginLen+1); cursor += loginLen;
     login[loginLen] = '\0';
-    
+
 
     int passwordLen = getLengthFromBytes(encodedCredentials + cursor); cursor += INT_SIZE;
     char* password = allocMemForString(passwordLen + 1);
@@ -222,7 +223,7 @@ Request decodeRequest(char* encodedMessage) {
     request.name = name;
 
     return request;
-    
+
     free(name);
 }
 
@@ -232,7 +233,7 @@ int check_user_in_database(char* login_to_check){
     int count = -1;
 
     int rc = sqlite3_open("database.db", &db);
-   
+
     if( rc ) {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
         return(0);
@@ -277,7 +278,7 @@ int check_login_details(Credentials credentials){
     int count = -1;
 
     int rc = sqlite3_open("database.db", &db);
-   
+
     if( rc ) {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
         return(0);
@@ -350,7 +351,7 @@ int register_user(Credentials credentials, int sock){
     sprintf(socket_char,"%d", sock);
 
     int rc = sqlite3_open("database.db", &db);
-   
+
     if( rc ) {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
         return(0);
@@ -455,7 +456,7 @@ void sendtoreceiver(char *sender, char *receiver, char *msg){
 
     encode(output, new_message);
 
-    
+
 
     if(send(receiver_socket,output,new_message.totalLen,0) < 0) {
         printf("Sending failure\n");
@@ -475,7 +476,7 @@ void update_user_socket(char *login, int socket){
     sprintf(socket_char,"%d", socket);
 
     int rc = sqlite3_open("database.db", &db);
-   
+
     if( rc ) {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     } else {
@@ -490,7 +491,7 @@ void update_user_socket(char *login, int socket){
     strcat(sql, "'");
 
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-   
+
     if( rc != SQLITE_OK ){
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
         sqlite3_free(zErrMsg);
@@ -508,7 +509,7 @@ void sendloginconf(char *decision, int curr){
     }else{
         printf("I have sent in the decision!\n");
     }
-    recvmg(&curr); 
+    recvmg(&curr);
 }
 
 void recvmg(void* client_sock){
@@ -529,7 +530,7 @@ void recvmg(void* client_sock){
             printf("%s", new_request.name);
             int decision = check_user_in_database(new_request.name);;
             int totalLen = strlen(new_request.name) + 7;
-            char *output = allocMemForString(totalLen); 
+            char *output = allocMemForString(totalLen);
             encodeRequest(output, new_request, decision);
             if(send(sock,output,totalLen,0) < 0) {
                 printf("Sending failure\n");
@@ -557,7 +558,7 @@ void recvmg(void* client_sock){
                     printf("I have forwarded the message!\n\n");
                 }
             }
-            
+
         }else if(msg[0] == 'l'){
             new_credentials = decodeCredentials(msg, false);
             printf("Login: %s\n", new_credentials.login);
@@ -573,9 +574,6 @@ void recvmg(void* client_sock){
             else if(checking_result == 0){
                 sendloginconf("0\n", sock);
             }
-        }
-        else if(msg[0] == 'q'){
-            number_of_clients--;
         }
         else{
             new_message = decode(msg);

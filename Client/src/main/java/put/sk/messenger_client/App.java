@@ -28,10 +28,7 @@ public class App extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         AnchorPane anchorPane = loader.load();
         MainController controller = loader.getController();
-        System.out.println(list.get(0));
-        System.out.println(list.get(1));
-        controller.setAddress(list.get(0));
-        controller.setPort(Integer.parseInt(list.get(1)));
+        controller.init(list.get(0), Integer.valueOf(list.get(1)));
         stage.setScene(new Scene(anchorPane, 800, 600));
         stage.show();
 

@@ -73,7 +73,7 @@ public class MainController {
     @FXML
     private TextField tf_friend;
 
-    private final SocketService socketService;
+    private SocketService socketService;
     private SocketListenerThread socketListenerThread;
     private SocketSenderThread socketSenderThread;
     private ExecutorService executor;
@@ -91,17 +91,7 @@ public class MainController {
     private String address;
     private int port;
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     public MainController() {
-        System.out.println(this.address + " " + this.port);
-        socketService = new SocketService("127.0.0.1", 1234);
         lastMessage = new SimpleStringProperty();
         executor = Executors.newCachedThreadPool();
 
@@ -129,6 +119,10 @@ public class MainController {
                 }
             }
         });
+    }
+
+    public void init(String address, int port){
+        socketService = new SocketService(address, port);
         try {
             socketService.init();
 
@@ -257,7 +251,7 @@ public class MainController {
         System.out.println(messages.toString());
 
         if (Objects.equals(receiver, message_decoded.getSender())){
-            Platform.runLater(()->ta_message.appendText(message_decoded.getSender() + ": " + message_decoded.getContent()));
+            Platform.runLater(()->ta_message.appendText(message_decoded.getSender() + ": " + message_decoded.getContent() + '\n'));
         }
         // ta_message.appendText(message_decoded.getSender() + ": " + message_decoded.getContent() + '\n');
     }
