@@ -1,0 +1,15 @@
+put/sk/messenger_client/controllers/MainController$2.class
+put/sk/messenger_client/protocols/CredentialsService.class
+put/sk/messenger_client/App$1.class
+put/sk/messenger_client/protocols/Credentials.class
+put/sk/messenger_client/controllers/MainController$1.class
+put/sk/messenger_client/sockets/SocketListenerThread.class
+put/sk/messenger_client/sockets/SocketService.class
+put/sk/messenger_client/controllers/MainController$3.class
+put/sk/messenger_client/protocols/FriendRequestService.class
+put/sk/messenger_client/protocols/Message.class
+put/sk/messenger_client/sockets/SocketSenderThread.class
+put/sk/messenger_client/App.class
+put/sk/messenger_client/protocols/MessageService.class
+put/sk/messenger_client/Main.class
+put/sk/messenger_client/controllers/MainController.class
