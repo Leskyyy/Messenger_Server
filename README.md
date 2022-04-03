@@ -59,9 +59,6 @@ A następnie po przejściu do folderu target uruchomić aplikację poleceniem:
 ```java -jar messenger_client-1.0-SNAPSHOT.jar 127.0.0.1 1234```
 
 ### Screenshots
-<center>
-    <img src="screenshots/image2.png">
-</center>
-<center>
-    <img src="screenshots/image1.png">
-</center>
+<p align="center">
+  <img src="screenshots/image2.png">
+</p>
