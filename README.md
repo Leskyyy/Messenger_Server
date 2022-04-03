@@ -57,3 +57,8 @@ Po przejściu do folderu client za pomocą narzędzia Maven tworzymy bibliotekę
 A następnie po przejściu do folderu target uruchomić aplikację poleceniem:
 
 ```java -jar messenger_client-1.0-SNAPSHOT.jar 127.0.0.1 1234```
+
+### Screenshots
+
+![Screenshot](screenshots/image2.png)
+![Screenshot](screenshots/image1.png)
