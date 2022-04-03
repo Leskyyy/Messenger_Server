@@ -62,4 +62,6 @@ A następnie po przejściu do folderu target uruchomić aplikację poleceniem:
 <center>
     <img src="screenshots/image2.png">
 </center>
-![Screenshot](screenshots/image1.png)
+<center>
+    <img src="screenshots/image1.png">
+</center>
